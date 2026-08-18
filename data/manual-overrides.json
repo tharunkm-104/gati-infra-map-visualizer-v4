@@ -1,0 +1,732 @@
+{
+  "_readme": [
+    "WHAT THIS FILE IS FOR",
+    "Hand corrections to the ALL-INDIA point layers, applied by prep/build_all_india_rollups.py.",
+    "Edit here, re-run that script, and the fix survives every future rebuild of the source layers.",
+    "Never hand-edit all-india-health-points.json or all-india-language-points.json: those are",
+    "regenerated from the workbook, the JSONL and the TSVs, and your edits would be overwritten.",
+    "",
+    "HOW A RULE WORKS",
+    "  match  - any subset of point fields (name, city, state, subtype, source, latitude...).",
+    "           Compared as strings, case-insensitively. ALL listed fields must match.",
+    "  set    - fields to overwrite on the matched point.",
+    "  drop   - true removes the point entirely.",
+    "  _disabled - true parks a rule without deleting it. The examples below are parked.",
+    "The FIRST matching rule wins per point, so put narrow rules above broad ones.",
+    "Corrected points are tagged manuallyEdited:true so you can audit them later.",
+    "",
+    "WHEN TO REACH FOR IT",
+    "  1. A coordinate is plainly wrong (facility lands in the sea, or in the wrong state).",
+    "  2. The same facility appears twice under two source lists - drop one.",
+    "  3. A city or state is blank or misspelled and you know the right value.",
+    "  4. An ownership value is wrong for a specific institution.",
+    "Anything systematic - a whole category mis-classified, a parsing rule that fails for",
+    "hundreds of rows - belongs in the prep script, not here. This file is for one-offs.",
+    "",
+    "FOR THE 15-CITY PILOT LAYER, edit via prep/reconcile_flags.py instead: that layer has its",
+    "own eligibility and coordinate-flag pipeline and does not read this file."
+  ],
+  "overrides": [
+    {
+      "_comment": "REAL, and live. PDOT entry 31 and SIIC Varanasi are the same building at the same coordinate (25.2710223, 82.9824651). The SIIC list is the authoritative one for this facility, so the PDOT duplicate is dropped to stop it being counted twice in pdot_siics.",
+      "match": {
+        "name": "PDOT — Skill India International Center (SIIC), Varanasi",
+        "subtype": "PDOT Centre"
+      },
+      "drop": true
+    },
+    {
+      "_comment": "EXAMPLE - parked. Fixing a wrong coordinate. Set coordinateStatus to researched_override so the audit trail shows it was corrected, not sourced.",
+      "_disabled": true,
+      "match": {
+        "name": "Some Hospital",
+        "city": "Pune"
+      },
+      "set": {
+        "latitude": 18.5204,
+        "longitude": 73.8567,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_comment": "EXAMPLE - parked. Filling in a missing city so the point reaches a city row instead of only the state view.",
+      "_disabled": true,
+      "match": {
+        "name": "Some Facility",
+        "state": "Kerala",
+        "city": ""
+      },
+      "set": {
+        "city": "Kozhikode"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 1.283596, 103.843.",
+      "match": {
+        "name": "K C Dental Clinic",
+        "state": "Andhra Pradesh",
+        "city": "Srikakulam"
+      },
+      "set": {
+        "latitude": 18.3059664,
+        "longitude": 83.8935615,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.13521, -77.6479.",
+      "match": {
+        "name": "Repalle Christian College Of Nursing,, 19Th Ward, Repalle ( M),, Repalle, Distt.- Guntur, Pin Code- 522265",
+        "state": "Andhra Pradesh",
+        "city": "Repalle"
+      },
+      "set": {
+        "latitude": 16.0197997,
+        "longitude": 80.8196156,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 37.54053, -77.4291.",
+      "match": {
+        "name": "Critical Care Hospital & Research Institute",
+        "state": "Assam",
+        "city": ""
+      },
+      "set": {
+        "latitude": 26.1108184,
+        "longitude": 91.7525332,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 39.09433, -84.6137.",
+      "match": {
+        "name": "Delhi Dental & Medical Centre, Rajinder Nagar, Delhi",
+        "state": "Delhi",
+        "city": ""
+      },
+      "set": {
+        "latitude": 28.6393414,
+        "longitude": 77.1826956,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 1.277785, 103.849.",
+      "match": {
+        "name": "Healthway Dental & medical Clinic, 1st Floor, Plot No. 20-21 Amberhai Exctension Sector- 19, Dwarka",
+        "state": "Delhi",
+        "city": "Plot No. 20"
+      },
+      "set": {
+        "latitude": 28.5772048,
+        "longitude": 77.046173,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 48.23499, -101.319.",
+      "match": {
+        "name": "Modern Dental & Oro Maxillofacial Clinic, B-217, Ground Floor, Hari Nagar",
+        "state": "Delhi",
+        "city": "Ground Floor"
+      },
+      "set": {
+        "latitude": 28.6258357,
+        "longitude": 77.111531,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 33.1729, -96.8462.",
+      "match": {
+        "name": "Sai Dental & Implant Clinic, 130 Mohammadpur RK Puram Behand Bhikaji Cama Place",
+        "state": "Delhi",
+        "city": "Sai Dental & Implant Clinic"
+      },
+      "set": {
+        "latitude": 28.5656403,
+        "longitude": 77.1869285,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 41.70729, 1.126412.",
+      "match": {
+        "name": "The Dental Hub And Implant Centre",
+        "state": "Delhi",
+        "city": "Vasant Kunj"
+      },
+      "set": {
+        "latitude": 28.5266068,
+        "longitude": 77.1527761,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 44.80607, -68.8014.",
+      "match": {
+        "name": "Uma Dental & implant Clinic, K.H. No. 326, Shop No. 01 Burari Village",
+        "state": "Delhi",
+        "city": "K.H. No."
+      },
+      "set": {
+        "latitude": 28.7539415,
+        "longitude": 77.198789,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.19385, -71.5724.",
+      "match": {
+        "name": "Hanumant Institute Of Nursing, Mahuva, Hanumant Hospital, Nesvad- Devaliya Bypass, N.H. No. 51, Vill.- Tehsil- Mahuva, Distt.- Bhavnagar, Pin Code- 364290",
+        "state": "Gujarat",
+        "city": "Mahuva"
+      },
+      "set": {
+        "latitude": 21.1002052,
+        "longitude": 71.691066,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.19385, -71.5724.",
+      "match": {
+        "name": "Sankara Eye Hospital Anand",
+        "state": "Gujarat",
+        "city": "Anand"
+      },
+      "set": {
+        "latitude": 22.5268827,
+        "longitude": 73.0198654,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 27.43867, -82.5894.",
+      "match": {
+        "name": "Chowdhary Hospital",
+        "state": "Haryana",
+        "city": "Rohtak"
+      },
+      "set": {
+        "latitude": 28.896436,
+        "longitude": 76.5838602,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 33.8542, -84.2159.",
+      "match": {
+        "name": "U First healthcare Pvt. Ltd., 323 2 & 3 Floor Premnagar- 2, Sector- 12A Opp. Raj Cinema",
+        "state": "Haryana",
+        "city": "2 & 3 Floor Premnagar"
+      },
+      "set": {
+        "latitude": 30.676896,
+        "longitude": 76.851885,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 11.16667, -1.14646.",
+      "match": {
+        "name": "JVR EYE HOSPITAL JAWALAMUKHI",
+        "state": "Himachal Pradesh",
+        "city": ""
+      },
+      "set": {
+        "latitude": 31.8865092,
+        "longitude": 76.3047192,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: longitude outside India. Was 23.6473, 13.3094.",
+      "match": {
+        "name": "Shanti Health Care Hospital",
+        "state": "Jharkhand",
+        "city": ""
+      },
+      "set": {
+        "latitude": 23.6473156,
+        "longitude": 86.1331083,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 38.90729, -77.0369.",
+      "match": {
+        "name": "Government College Of Nursing, Behind Dc Residence Bm Road, Hassan, Distt.- Hassan, Pin Code- 573201",
+        "state": "Karnataka",
+        "city": "Hassan"
+      },
+      "set": {
+        "latitude": 13.0033234,
+        "longitude": 76.1003894,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 51.28613, 0.556537.",
+      "match": {
+        "name": "KIMS Hospital & Research Centre",
+        "state": "Karnataka",
+        "city": ""
+      },
+      "set": {
+        "latitude": 12.9565123,
+        "longitude": 77.574556,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was -34.0311, 151.0646.",
+      "match": {
+        "name": "Meenakshi ENT Speciality Centre",
+        "state": "Karnataka",
+        "city": "Bangalore"
+      },
+      "set": {
+        "latitude": 12.9240722,
+        "longitude": 77.5711387,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 111, 11.",
+      "match": {
+        "name": "Vijayanagar Hospital",
+        "state": "Karnataka",
+        "city": "Bangalore"
+      },
+      "set": {
+        "latitude": 12.9716435,
+        "longitude": 77.5371805,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: longitude outside India. Was 23.87465, 56.09857.",
+      "match": {
+        "name": "Vivekananda Memorial Hospital",
+        "state": "Karnataka",
+        "city": "Mysore"
+      },
+      "set": {
+        "latitude": 11.9895112,
+        "longitude": 76.3954699,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 74.57256, 23.00681.",
+      "match": {
+        "name": "KK Shah Hospitals Limited",
+        "state": "Madhya Pradesh",
+        "city": "Jhabua"
+      },
+      "set": {
+        "latitude": 23.0065389,
+        "longitude": 74.5725366,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 73.94167, 18.49667.",
+      "match": {
+        "name": "RMD Heart Hospital & Research Centre",
+        "state": "Maharashtra",
+        "city": "Pune"
+      },
+      "set": {
+        "latitude": 18.5036808,
+        "longitude": 73.9225142,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 72.9005, 19.0522.",
+      "match": {
+        "name": "Shree Ramkrishna Netralaya",
+        "state": "Maharashtra",
+        "city": "Thane",
+        "address": "1st FLOOR , SHAH GROUP BUILDING , ABOVE STARBUCKS , OPPOSITE ABHYUDAYA COOP BANK, SECTOR 17, VASHI, , NAVI MUMBAI , THANE, Maharashtra, India, 400705"
+      },
+      "set": {
+        "latitude": 19.0714867,
+        "longitude": 73.0024172,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 72.9005, 19.0522.",
+      "match": {
+        "name": "Shree Ramkrishna Netralaya",
+        "state": "Maharashtra",
+        "city": "Thane",
+        "address": "GHODBUNDER ROAD, MANPADA, DOSTI IMERIA SHOPPE, 1ST FLOOR, UNIT 1-4, , THANE WEST, THANE, Maharashtra, India, 400607"
+      },
+      "set": {
+        "latitude": 19.2318678,
+        "longitude": 72.9757905,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 72.9005, 19.0522.",
+      "match": {
+        "name": "Shree Ramkrishna Netralaya",
+        "state": "Maharashtra",
+        "city": "Mumbai City"
+      },
+      "set": {
+        "latitude": 19.0567312,
+        "longitude": 72.9011883,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 72.86, 19.25.",
+      "match": {
+        "name": "Suchak Hospital",
+        "state": "Maharashtra",
+        "city": "Mumbai"
+      },
+      "set": {
+        "latitude": 19.2523094,
+        "longitude": 72.8651174,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 41.03609, -71.9424.",
+      "match": {
+        "name": "TMC - Advanced Centre for Treatment Research and Education in Cancer",
+        "state": "Maharashtra",
+        "city": "Navi Mumbai"
+      },
+      "set": {
+        "latitude": 19.0690615,
+        "longitude": 73.0705829,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 39.79031, -86.2337.",
+      "match": {
+        "name": "IMS & Sum Hospital Campus III",
+        "state": "Odisha",
+        "city": ""
+      },
+      "set": {
+        "latitude": 19.5859712,
+        "longitude": 84.6897495,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 33.94691, -84.3545.",
+      "match": {
+        "name": "A.P Healthcare & Trauma Centre",
+        "state": "Punjab",
+        "city": ""
+      },
+      "set": {
+        "latitude": 30.3302642,
+        "longitude": 76.3907115,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: null island (0,0) - geocoder returned no match. Was 0, 0.",
+      "match": {
+        "name": "Fortis Hospital (A Unit of Fortis Hospotel Limited) - (Earlier Certificate issued in the Name of Shrimann Superspeciality Hospital)",
+        "state": "Punjab",
+        "city": "Jalandhar Pathankot Road Near Reru Chowk Jalandhar"
+      },
+      "set": {
+        "latitude": 31.3663242,
+        "longitude": 75.5979431,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 41.25783, -95.9503.",
+      "match": {
+        "name": "My Hospital Super Speciality Care (A Unit of Chandigarh Healthcare (P) Ltd.)",
+        "state": "Punjab",
+        "city": "Sas Nagar"
+      },
+      "set": {
+        "latitude": 30.6973123,
+        "longitude": 76.722668,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 33.82548, -84.2549.",
+      "match": {
+        "name": "Neuro Spine & Super Speciality Hospital, 490 Mayapuri Colony Thar Honda Ke Peeche, Jaipur Road,",
+        "state": "Rajasthan",
+        "city": "Jaipur Road"
+      },
+      "set": {
+        "latitude": 26.8301779,
+        "longitude": 75.8276114,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 59.24772, 10.42465.",
+      "match": {
+        "name": "Vinodhagan Memorial",
+        "state": "Tamil Nadu",
+        "city": "Thanjavur"
+      },
+      "set": {
+        "latitude": 10.7747062,
+        "longitude": 79.1376422,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 41.45371, -81.4951.",
+      "match": {
+        "name": "Ahuja Medical & Research Centre (A unit of Ahuja Medical Maternity Centre), 87/53, Bhannana Purwa",
+        "state": "Uttar Pradesh",
+        "city": "87/53"
+      },
+      "set": {
+        "latitude": 27.5705886,
+        "longitude": 80.0981869,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 36.82935, -76.1331.",
+      "match": {
+        "name": "Divine Heart & Multispeciality Hospital ( A unit of Divine heart & hospital & research center pvt. Ltd.)",
+        "state": "Uttar Pradesh",
+        "city": ""
+      },
+      "set": {
+        "latitude": 26.8588016,
+        "longitude": 81.0235985,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 36.82935, -76.1331.",
+      "match": {
+        "name": "Divine Heart & Multispeciality Hospital (A unit of Divine Heart & Hospital & Research Center Pvt. Ltd.), Viraj Khand Institutional Area-5, Gomti Nagar",
+        "state": "Uttar Pradesh",
+        "city": "Viraj Khand Institutional Area"
+      },
+      "set": {
+        "latitude": 26.8588016,
+        "longitude": 81.0235985,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: longitude outside India. Was 16.05392, 108.2091.",
+      "match": {
+        "name": "Family Hospital & Research Centre, A-09, Awas Vikas Hanspuram Naubasta",
+        "state": "Uttar Pradesh",
+        "city": "A"
+      },
+      "set": {
+        "latitude": 26.3992166,
+        "longitude": 80.3143161,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 50.00593, -110.651.",
+      "match": {
+        "name": "Grover Dental & Medical Centre, A9/A Nirala Nagar",
+        "state": "Uttar Pradesh",
+        "city": "Grover Dental & Medical Centre"
+      },
+      "set": {
+        "latitude": 26.8767687,
+        "longitude": 80.942232,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.19385, -71.5724.",
+      "match": {
+        "name": "Healthcity Trauma Centre And Super-Specialty Hospital",
+        "state": "Uttar Pradesh",
+        "city": "Lucknow"
+      },
+      "set": {
+        "latitude": 26.8566497,
+        "longitude": 80.9936055,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.19385, -71.5724.",
+      "match": {
+        "name": "LUCKNOW HEALTH CITY TRAUMA CENTRE",
+        "state": "Uttar Pradesh",
+        "city": "Lucknow"
+      },
+      "set": {
+        "latitude": 26.8566497,
+        "longitude": 80.9936055,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: longitude outside India. Was 6.643682, 3.344013.",
+      "match": {
+        "name": "Medwin Hospital & Research, K-58/77, Ground Floor, Maidagin Road, Bada Ganesh, Maidagin",
+        "state": "Uttar Pradesh",
+        "city": "Bada Ganesh"
+      },
+      "set": {
+        "latitude": 27.5705886,
+        "longitude": 80.0981869,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was -17.8821, -51.7149.",
+      "match": {
+        "name": "Oral Implant & Dental Health Center, Meerut Cantt., Abulane, Sadar Chowk Path",
+        "state": "Uttar Pradesh",
+        "city": "Abulane"
+      },
+      "set": {
+        "latitude": 28.9963129,
+        "longitude": 77.702039,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: latitude outside India. Was 1.343902, 103.7534.",
+      "match": {
+        "name": "PPM Medical research & Trauma Centre Private Limited, 127/194 W-1 Saket Nagar",
+        "state": "Uttar Pradesh",
+        "city": "Ppm Medical Research & Trauma Centre Private Limited"
+      },
+      "set": {
+        "latitude": 26.4354625,
+        "longitude": 80.3171603,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.19385, -71.5724.",
+      "match": {
+        "name": "Ravi Unity Hospital",
+        "state": "Uttar Pradesh",
+        "city": "Firozabadad"
+      },
+      "set": {
+        "latitude": 27.1494463,
+        "longitude": 78.4078108,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 43.19385, -71.5724.",
+      "match": {
+        "name": "Chittaranjan Advance Medical Referral Institute",
+        "state": "West Bengal",
+        "city": "Bardhaman"
+      },
+      "set": {
+        "latitude": 23.223331,
+        "longitude": 87.8979851,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_tag": "coordinate-correction",
+      "_comment": "Geocoding failure corrected: negative longitude - geocoded to the Americas. Was 11.16667, -1.14646.",
+      "match": {
+        "name": "Lions Club of Jamalpur Welfare Trust",
+        "state": "West Bengal",
+        "city": "Bardhaman"
+      },
+      "set": {
+        "latitude": 23.061089,
+        "longitude": 87.9925839,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_comment": "Geocoded to Colombo, Sri Lanka. Corrected to Sector 29, Gurugram.",
+      "match": {
+        "name": "Vasan Eye Care Hospital, SCO -379 &380, Sector -29"
+      },
+      "set": {
+        "latitude": 28.47189410782642,
+        "longitude": 77.07220477747582,
+        "coordinateStatus": "researched_override"
+      }
+    },
+    {
+      "_comment": "Geocoded to Colombo, Sri Lanka. Corrected to Pune. NOTE: source name uses '&', not 'and'.",
+      "match": {
+        "name": "Dr Prasanna Dental Clinic & Implant Centre"
+      },
+      "set": {
+        "latitude": 18.47192708222247,
+        "longitude": 73.88892637690061,
+        "coordinateStatus": "researched_override"
+      }
+    }
+  ]
+}

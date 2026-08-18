@@ -1,0 +1,185 @@
+{
+ "columnTotal": 2502,
+ "eligibleRenderableTotal": 2395,
+ "shortfallTotal": 107,
+ "pointsTotal": 3847,
+ "byFlag": {
+  "EXCLUDED": 986,
+  "UNCERTAIN": 466,
+  "ELIGIBLE": 2395
+ },
+ "byCoordinateStatus": {
+  "source": 3846,
+  "undefined": 1
+ },
+ "cities": [
+  {
+   "city": "New Delhi",
+   "columnCount": 661,
+   "eligibleRenderablePoints": 660,
+   "shortfall": 1,
+   "pointsTotal": 1270,
+   "eligible": 660,
+   "uncertain": 3,
+   "excluded": 607,
+   "unrenderable": {
+    "undefined": 1
+   }
+  },
+  {
+   "city": "Bengaluru",
+   "columnCount": 252,
+   "eligibleRenderablePoints": 232,
+   "shortfall": 20,
+   "pointsTotal": 330,
+   "eligible": 232,
+   "uncertain": 44,
+   "excluded": 54,
+   "unrenderable": {}
+  },
+  {
+   "city": "Mumbai",
+   "columnCount": 276,
+   "eligibleRenderablePoints": 268,
+   "shortfall": 8,
+   "pointsTotal": 336,
+   "eligible": 268,
+   "uncertain": 26,
+   "excluded": 42,
+   "unrenderable": {}
+  },
+  {
+   "city": "Pune",
+   "columnCount": 231,
+   "eligibleRenderablePoints": 216,
+   "shortfall": 15,
+   "pointsTotal": 378,
+   "eligible": 216,
+   "uncertain": 109,
+   "excluded": 53,
+   "unrenderable": {}
+  },
+  {
+   "city": "Chennai",
+   "columnCount": 223,
+   "eligibleRenderablePoints": 213,
+   "shortfall": 10,
+   "pointsTotal": 291,
+   "eligible": 213,
+   "uncertain": 47,
+   "excluded": 31,
+   "unrenderable": {}
+  },
+  {
+   "city": "Hyderabad",
+   "columnCount": 219,
+   "eligibleRenderablePoints": 201,
+   "shortfall": 18,
+   "pointsTotal": 261,
+   "eligible": 201,
+   "uncertain": 24,
+   "excluded": 36,
+   "unrenderable": {}
+  },
+  {
+   "city": "Kolkata",
+   "columnCount": 160,
+   "eligibleRenderablePoints": 158,
+   "shortfall": 2,
+   "pointsTotal": 212,
+   "eligible": 158,
+   "uncertain": 40,
+   "excluded": 14,
+   "unrenderable": {}
+  },
+  {
+   "city": "Nagpur Urban + Rural",
+   "columnCount": 170,
+   "eligibleRenderablePoints": 149,
+   "shortfall": 21,
+   "pointsTotal": 280,
+   "eligible": 149,
+   "uncertain": 94,
+   "excluded": 37,
+   "unrenderable": {}
+  },
+  {
+   "city": "Coimbatore North + South",
+   "columnCount": 92,
+   "eligibleRenderablePoints": 91,
+   "shortfall": 1,
+   "pointsTotal": 111,
+   "eligible": 91,
+   "uncertain": 13,
+   "excluded": 7,
+   "unrenderable": {}
+  },
+  {
+   "city": "Thiruvananthapuram",
+   "columnCount": 45,
+   "eligibleRenderablePoints": 42,
+   "shortfall": 3,
+   "pointsTotal": 98,
+   "eligible": 42,
+   "uncertain": 24,
+   "excluded": 32,
+   "unrenderable": {}
+  },
+  {
+   "city": "Thrissur",
+   "columnCount": 40,
+   "eligibleRenderablePoints": 39,
+   "shortfall": 1,
+   "pointsTotal": 66,
+   "eligible": 39,
+   "uncertain": 8,
+   "excluded": 19,
+   "unrenderable": {}
+  },
+  {
+   "city": "Kochi",
+   "columnCount": 54,
+   "eligibleRenderablePoints": 53,
+   "shortfall": 1,
+   "pointsTotal": 90,
+   "eligible": 53,
+   "uncertain": 10,
+   "excluded": 27,
+   "unrenderable": {}
+  },
+  {
+   "city": "Chandigarh",
+   "columnCount": 40,
+   "eligibleRenderablePoints": 36,
+   "shortfall": 4,
+   "pointsTotal": 65,
+   "eligible": 36,
+   "uncertain": 18,
+   "excluded": 11,
+   "unrenderable": {}
+  },
+  {
+   "city": "Kozhikode North + South",
+   "columnCount": 31,
+   "eligibleRenderablePoints": 31,
+   "shortfall": 0,
+   "pointsTotal": 47,
+   "eligible": 31,
+   "uncertain": 5,
+   "excluded": 11,
+   "unrenderable": {}
+  },
+  {
+   "city": "Aluva",
+   "columnCount": 8,
+   "eligibleRenderablePoints": 6,
+   "shortfall": 2,
+   "pointsTotal": 12,
+   "eligible": 6,
+   "uncertain": 1,
+   "excluded": 5,
+   "unrenderable": {}
+  }
+ ],
+ "note": "The shortfall is the number of facilities the consolidated table counts that have no eligible, renderable NABH point behind them. Causes to check upstream: rows collapsed by name+PIN de-duplication that were in fact distinct facilities; rows whose address failed to yield a city; and rows classified UNCERTAIN whose facility type could not be resolved. Every shortfall row is a data-validation candidate, not a map bug."
+}

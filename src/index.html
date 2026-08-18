@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GATI &middot; Infrastructure Map</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="./styles.css">
+    
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <strong>GATI</strong>
+          <small>Global Access to Talent from India</small>
+        </span>
+      </div>
+      <h1 class="site-title">German Language &amp; Health Infrastructure Map</h1>
+      <div class="dataset-row" role="group" aria-label="Dataset">
+        <button class="dataset-button active" data-dataset="pilot" type="button">15-Hotspot Cities</button>
+        <button class="dataset-button" data-dataset="allIndia" type="button">All-India</button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="map-pane" aria-label="Infrastructure map">
+        <div class="topbar">
+          <label class="pill-toggle" for="true-coords-toggle">
+            <input type="checkbox" id="true-coords-toggle">
+            True coordinates only
+          </label>
+        </div>
+
+        <div id="aggregate-summary" class="aggregate-summary" aria-label="Totals across the current dataset"></div>
+
+        <div id="map" role="application" aria-label="Map of tracked infrastructure"></div>
+
+        <div id="hover-card" class="hover-card" hidden></div>
+
+        <div class="bottom-bar">
+          <div class="view-mode-row" role="group" aria-label="View mode">
+            <button class="mode-button active" data-mode="domain" type="button"><small>Split by</small><strong>Language &amp; Health</strong></button>
+            <button class="mode-button" data-mode="pairs" type="button"><small>Group by</small><strong>Sector</strong></button>
+            <button class="mode-button" data-mode="full" type="button"><small>Break out</small><strong>Every Category</strong></button>
+          </div>
+          <div id="legend" class="legend" aria-label="Legend"></div>
+        </div>
+      </section>
+
+      <aside class="detail-pane" aria-label="Zoom level and location counts">
+        <div class="level-row">
+          <span class="zoom-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.5" cy="10.5" r="6.5"></circle>
+              <line x1="15.4" y1="15.4" x2="21" y2="21"></line>
+            </svg>
+          </span>
+          <button class="level-button" data-level="state" type="button">
+            <small>By</small><strong>State</strong>
+          </button>
+          <button class="level-button" data-level="city" type="button">
+            <small>By</small><strong>City</strong>
+          </button>
+          <button class="level-button" data-level="infrastructure" type="button">
+            <small>Each</small><strong>Infrastructure</strong>
+          </button>
+          <label class="follow-zoom" for="follow-zoom-toggle">
+            <input type="checkbox" id="follow-zoom-toggle" checked>
+            Follow zoom
+          </label>
+        </div>
+        <section class="panel">
+          <div id="location-table" class="location-table"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/supercluster@8.0.1/dist/supercluster.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

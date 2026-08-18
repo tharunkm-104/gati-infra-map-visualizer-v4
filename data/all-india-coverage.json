@@ -1,0 +1,22 @@
+{
+ "layers": [
+  {
+   "layer": "health",
+   "points": 20007,
+   "cityAttributed": 17512,
+   "cityMissing": 2495
+  },
+  {
+   "layer": "language",
+   "points": 727,
+   "cityAttributed": 727,
+   "cityMissing": 0
+  }
+ ],
+ "totalPoints": 20734,
+ "cityAttributed": 18239,
+ "cityMissing": 2495,
+ "cities": 5561,
+ "states": 38,
+ "note": "City is parsed from free-text postal addresses for NABH rows, so a share cannot be attributed to a city. Unattributed points still render on the map and still count at state level. Only cities identified in the source extracts appear here."
+}
